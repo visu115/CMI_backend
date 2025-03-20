@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const register = require('./Routers/register/register.js');
 const checkuser = require('./Routers/CheckUser/checkuser.js');
-const Admin = require('./Routers/Admin_route/Admin.js')
+const Admin = require('./Routers/Admin_route/Admin.js');
+const NewUser = require('./Routers/New_user/New_user.js');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
@@ -52,7 +53,8 @@ const db = client.db(DATABASE1);
 //const http=require('http')
 app.use(register);
 app.use(checkuser);
-app.use(Admin)
+app.use(Admin);
+app.use(NewUser);
 var alrt = {}
 var lastalrt = ''
 

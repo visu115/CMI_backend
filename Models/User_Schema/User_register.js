@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const { DB_CONNECTION, DATABASE1 } = process.env
 const db = mongoose.createConnection(DB_CONNECTION + DATABASE1);
 const user_schema = new Schema({
-    user_id: { type: Number, required: true },
+    user_id: { type: Number, default: 0 },
     user_name: { type: String, required: true, default: '' },
-    rights: { type: String, required: true, default: 'Operator' }
+    password: { type: String, required: true, default: '' },
+    rights: { type: String, required: true, default: '' }
 })
 user_schema.pre("save", async function (next) {
     //console.log(this.isNew);

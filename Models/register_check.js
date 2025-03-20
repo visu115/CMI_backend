@@ -40,7 +40,8 @@ const registerschema = new Schema({
     stitches3: { type: Number, default: 0 },
     min3: { type: Number, default: 0 },
     stl_corr_fak3: { type: Number, default: 0 },
-    stitch_length3: { type: Number, default: 0 }
+  stitch_length3: { type: Number, default: 0 }
+    
   });
 const register=db.model('user_registration', registerschema);
 module.exports = register;

@@ -49,24 +49,11 @@ router.post('/register', async (req, res) => {
   try {
     
     // Check if the user already exists before saving
-    const existingUser = await User.findOne({ user_name });
+    const existingUser = await register.findOne({ user_name });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
     const newUser = new register(req.body); // Use User model (assuming you're using Mongoose for User)
-
-    const scan = new scan_data();
-    scan.article_code= req.body.article_code,
-    scan.codereader1= req.body.codereader1,
-    scan.codereader2= req.body.codereader2,
-    scan.codereader3= req.body.codereader3,
-    scan.codereader4= req.body.codereader4,
-    scan.codereader5= req.body.codereader5,
-    scan.user_name= req.body.user_name,
-
-    // If user doesn't exist, proceed to create and save the new user
-        await newUser.save();
-        console.log("Scan Data",scan);
 
         await scan.save();
 
