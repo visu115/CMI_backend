@@ -47,11 +47,22 @@ router.post('/login_check', async (req, res) => {
 
         // const admin = new Admin(req.body); // Use User model (assuming you're using Mongoose for User)
         if (!adminCheck) {
-            return res.status(400).json({ message: "Invalid username or password" });
+            return res.status(401).json({ message: "Invalid username or password" });
         }
         res.json({ data: adminCheck, status: 'ok', access: 'admin', message: "Admin login matched" });
     } catch (error) {
         console.error(error);  // It's good to log the error for debugging purposes
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+router.get('/getAllUsers', async (req, res) => {
+    try {
+        console.log("Testing all users");
+        const users = await db.collection("users").find().toArray();
+        console.log(users);
+        res.json(users);
+    } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
 });

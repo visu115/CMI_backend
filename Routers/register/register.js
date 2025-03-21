@@ -2,63 +2,63 @@ const express = require('express');
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 const User = require('../../Models/User');
-const mongodb=require('mongodb')
+const mongodb = require('mongodb')
 const router = express.Router();
 
-const {DB_CONNECTION,DATABASE1}=process.env
+const { DB_CONNECTION, DATABASE1 } = process.env
 const client = new mongodb.MongoClient(DB_CONNECTION);
 const db = client.db(DATABASE1);
 
-const register=require('../../Models/register')
+const register = require('../../Models/register')
 
 const scan_data = require('../../Models/scan_data');
 
 const GetData = require('../../eventEmitter');
-var io ;
-GetData.once('sok',(hh)=>{io=hh});
+var io;
+GetData.once('sok', (hh) => { io = hh });
 // Register route
-router.get("/Dataa",(req,res)=>{
- io.emit('testingData', { test:"kij" });
- res.json({hii:"hii"})
+router.get("/Dataa", (req, res) => {
+  io.emit('testingData', { test: "kij" });
+  res.json({ hii: "hii" })
 })
 
 
 router.get('/check_username', async (req, res) => {
-  try{
-    const {user_name} = req.query;
+  try {
+    const { user_name } = req.query;
     //console.log(user_name);
-    
-    if(!user_name){
-      return res.status(400).json({message:"User Name  Is Required"})
+
+    if (!user_name) {
+      return res.status(400).json({ message: "User Name  Is Required" })
     }
-    const existingUser = await register.findOne({user_name});
-    if(existingUser){
-      return res.json({have:false, message:"UserName is already taken"});
+    const existingUser = await register.findOne({ user_name });
+    if (existingUser) {
+      return res.json({ have: false, message: "UserName is already taken" });
     }
-    return res.json({have:true, message:"UserName is available"})
-  }catch(error){
-    return res.status(500).json({message:"server error"})
+    return res.json({ have: true, message: "UserName is available" })
+  } catch (error) {
+    return res.status(500).json({ message: "server error" })
   }
 })
 
 
 router.post('/register', async (req, res) => {
   console.log(req.body);
-  const { user_name } = req.body;
+  const { article_code } = req.body;
 
   try {
-    
+
     // Check if the user already exists before saving
-    const existingUser = await register.findOne({ user_name });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+    const existingcode = await register.findOne({ article_code });
+    if (existingcode) {
+      return res.status(400).json({ message: 'Article code already exists' });
     }
     const newUser = new register(req.body); // Use User model (assuming you're using Mongoose for User)
 
-        await scan.save();
+    await newUser.save();
 
-   
-        
+
+
 
     return res.json({ message: "User registered successfully" });
   } catch (error) {
@@ -95,7 +95,7 @@ router.post('/update_register', async (req, res) => {
 });
 
 // router.post('/register', async (req, res) => {
-  
+
 //   console.log(req.body);
 //   const { user_name, password ,identification_no,rights,personal_id,photo,seam_name,seam_no,type,maxspeed1,abslong1,max1,stitch_length1,stl_corr_fak1,min1,stitches1,type2,max2,abslong2,maxspeed2,stitches2,min2,stl_corr_fak2,stitch_length2,type3,maxspeed3,abslong3,max3,stitches3,min3,stl_corr_fak3,stitch_length3 } = req.body;
 //   try {
@@ -138,7 +138,7 @@ router.post('/update_register', async (req, res) => {
 //   await values.save();
 
 //   res.status(201).json({ message: 'User registered successfully' });
-  
+
 //     const existingUser = await User.findOne({ user_name });
 //     if (existingUser) {
 //       return res.status(400).json({ message: 'User already exists' });
@@ -173,11 +173,11 @@ router.post('/update_register', async (req, res) => {
 //     const req1 = http.request(options, (res1) => {
 //       res1.on('data', (chunk) => {
 //         console.log(chunk.toString());
-        
-  
+
+
 //       });
 //     });
-    
+
 //     req1.on('error', (error) => {
 //       console.error("req1");
 //     });
@@ -192,7 +192,7 @@ router.post('/update_register', async (req, res) => {
 
 //     //const isMatch = await bcrypt.compare(password, user_login.password);
 //     const isMatch = password === user_login.password;
-    
+
 //     if (!isMatch) {
 //       req1.write(JSON.stringify({ data:2,address:"D236" }));
 //       req1.end();
@@ -217,12 +217,12 @@ router.post('/update_register', async (req, res) => {
 
 // Get all users
 
-router.get('/allUsers', async (req, res) => {
+router.get('/getArticleList', async (req, res) => {
   try {
     console.log("Testing all users");
-    const users = await db.collection("user_registrations").find().toArray();
-    console.log(users);
-    res.json(users);
+    const articleData = await db.collection("user_registrations").find().toArray();
+    console.log(articleData);
+    res.json(articleData);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
@@ -237,7 +237,7 @@ router.get('/allUsers', async (req, res) => {
 
 //     // Extract the username from query parameters
 //     const { pharma: username } = req.query;  // 'pharma' is the query parameter key
-    
+
 //     if (!username) {
 //       return res.status(400).json({ message: 'Username is required' });
 //     }
