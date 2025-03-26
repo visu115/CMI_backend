@@ -7,14 +7,6 @@ const db = mongoose.createConnection(DB_CONNECTION + DATABASE1);
 
 const registerschema = new Schema({
 
-  // user_name: { type: String, required: true, default: '' },
-  // password: { type: String, required: true, default: '' },
-  // identification_no: { type: String, default: '' },
-  // rights: { type: String, default: 'user' },
-  // time: { type: Date, default: Date.now },
-  // date: { type: Date, default: Date.now },
-  // personal_id: { type: String, default: '' },
-  // photo: { type: Buffer,  default: null },
   article_id: { type: Number, default: 0 },
   program_no: { type: Number, default: 0 },
   seam_name: { type: Number, default: 1 },
@@ -34,27 +26,7 @@ const registerschema = new Schema({
   codereader3: { type: String, default: '' },
   codereader4: { type: String, default: '' },
   codereader5: { type: String, default: '' },
-  // user_name: { type: String }
-  // section_seam_2: { type: String, default: 0 },
-  // thread_tension_2: { type: Number, default: 0 },
-  // stiches_length_2: { type: Number, default: 0 },
-  // foot_pressure_2: { type: Number, default: 0 },
-  // no_stitches_max2: { type: Number, default: 0 },
-  // foot_height_2: { type: Number, default: 0 },
-  // sewing_speed_2: { type: Number, default: 0 },
-  // walking_fot_stoke2: { type: Number, default: '' },
-  // no_stitches2: { type: Number, default: 0 },
-  // no_stitches_min2: { type: Number, default: 0 },
-  // section_seam_3: { type: String, default: 0 },
-  // thread_tension_3: { type: Number, default: 0 },
-  // stiches_length_3: { type: Number, default: 0 },
-  // foot_pressure_3: { type: Number, default: 0 },
-  // no_stitches_max3: { type: Number, default: 0 },
-  // foot_height_3: { type: Number, default: 0 },
-  // sewing_speed_3: { type: Number, default: 0 },
-  // walkimg_fot_stoke3: { type: Number, default: 0 },
-  // no_stitches3: { type: Number, default: 0 },
-  // no_stitches_min3: { type: Number, default: 0 }
+
 });
 registerschema.pre("save", async function (next) {
   //console.log(this.isNew);

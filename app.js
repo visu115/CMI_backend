@@ -5,6 +5,7 @@ const register = require('./Routers/register/register.js');
 const checkuser = require('./Routers/CheckUser/checkuser.js');
 const Admin = require('./Routers/Admin_route/Admin.js');
 const NewUser = require('./Routers/New_user/New_user.js');
+const Article_code = require('./Routers/Article_scan/article_code_scanner.js');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
@@ -54,7 +55,8 @@ const db = client.db(DATABASE1);
 app.use(register);
 app.use(checkuser);
 app.use(Admin);
-app.use(NewUser);
+app.use(Article_code);
+app.use(NewUser); 
 var alrt = {}
 var lastalrt = ''
 
@@ -499,12 +501,6 @@ app.post('/login', async (req, res) => {
   try {
     const user_login = await db.collection("user_registrations").findOne({ user_name });
     console.log(user_login);
-
-
-
-
-
-
 
 
     if (!user_login) {
